@@ -7,7 +7,7 @@ import { createNewParticle } from "./particle.js";
 
 export let astroidArray = [];
 let difficulty = 2000;
-const astroidFriction = 0.999;
+const astroidFriction = 0.995;
 let i = 0;
 
 export class Astroid extends PlanetaryBody {
@@ -70,7 +70,7 @@ export function updateAstroid(projectileArray) {
       if (hasCollided(projectile, astroid)) {
         createNewParticle(projectile, astroid);
 
-        if (astroid.radius - 15 > 5) {
+        if (astroid.radius - 20 > 8) {
           gsap.to(astroid, { radius: astroid.radius - 20 });
           projectileArray.splice(projectileIndex, 1);
           score.scoreUp();
