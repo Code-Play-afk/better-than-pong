@@ -1,5 +1,6 @@
 import { projectileArray, updateProjectile } from "./projectile.js";
 import { updateAstroid, spawnNewAstroid, astroidArray } from "./astroid.js";
+import { updateParticle, deleteParticle } from "./particle.js";
 import { resetCanvas } from "./canvas.js";
 import { score } from "./score.js";
 import { planet } from "./canvas.js";
@@ -7,10 +8,9 @@ import "./input.js";
 
 let lastTime,
   lost = false;
-const modal = document.getElementById("Overlay");
+let modal = document.getElementById("Overlay");
 
 function handleStart() {
-  console.log("This is start");
   modal.classList.add("hidden");
   resetCanvas();
   score.hiScore = score.fetchHiScore();
@@ -30,6 +30,8 @@ function gameLoop(time) {
   requestAnimationFrame(gameLoop);
   updateProjectile();
   updateAstroid(projectileArray);
+  updateParticle();
+  deleteParticle();
   hasDied();
 }
 
@@ -39,20 +41,11 @@ function handleLoss() {
   score.setDeathScore();
   modal.classList.remove("hidden");
   score.currentScore = 0;
-  setTimeout(() => {
-    document.addEventListener("click", handleStart, {
-      once: true,
-    });
-  }, 1000);
+  lost = false;
+  document.addEventListener("click", handleStart, { once: true });
 }
 
-addEventListener(
-  "click",
-  () => {
-    handleStart();
-  },
-  { once: true }
-);
+document.addEventListener("click", handleStart, { once: true });
 
 function hasDied() {
   astroidArray.forEach((astroid, astroidIndex) => {

@@ -15,7 +15,7 @@ export class PlanetaryBody {
   }
   travel(ctx) {
     this.draw(ctx);
-    this.x += this.velocity.x * 10;
-    this.y += this.velocity.y * 10;
+    this.x += this.velocity.x;
+    this.y += this.velocity.y;
   }
 }

@@ -2,8 +2,13 @@ import { canvas } from "./canvas.js";
 import { ctx } from "./canvas.js";
 import { score } from "./score.js";
 import { PlanetaryBody } from "./components.js";
+import { deleteProjectile } from "./projectile.js";
+import { createNewParticle } from "./particle.js";
 
 export const astroidArray = [];
+let difficulty = 2000;
+const astroidFriction = 0.995;
+
 export class Astroid extends PlanetaryBody {
   constructor(coordinates, radius, color, velocity) {
     super(coordinates, radius, color);
@@ -12,6 +17,8 @@ export class Astroid extends PlanetaryBody {
 
   travel(ctx) {
     this.draw(ctx);
+    this.velocity.x *= astroidFriction;
+    this.velocity.y *= astroidFriction;
     this.x += this.velocity.x;
     this.y += this.velocity.y;
   }
@@ -19,7 +26,7 @@ export class Astroid extends PlanetaryBody {
 
 export function spawnNewAstroid() {
   setInterval(() => {
-    const radius = Math.floor(Math.random() * 30) + 20;
+    const radius = Math.floor(Math.random() * 40) + 20;
     let astroidCoordinates = { x: 0, y: 0 };
     if (Math.random() < 0.5) {
       astroidCoordinates.x =
@@ -47,7 +54,8 @@ export function spawnNewAstroid() {
       astroidVelocity
     );
     astroidArray.push(astroid);
-  }, 2000);
+    if (difficulty >= 300) difficulty -= 10;
+  }, difficulty);
 }
 
 export function updateAstroid(projectileArray) {
@@ -55,33 +63,45 @@ export function updateAstroid(projectileArray) {
     astroid.travel(ctx);
 
     projectileArray.forEach((projectile, projectileIndex) => {
-      if (
-        projectile.x + projectile.radius < 0 ||
-        projectile.x - projectile.radius > canvas.width ||
-        projectile.y + projectile.radius < 0 ||
-        projectile.y - projectile.radius > canvas.height
-      ) {
-        projectileArray.splice(projectileIndex, 1);
-      }
-      if (
-        astroid.x + astroid.radius < 0 ||
-        astroid.x - astroid.radius > canvas.width ||
-        astroid.y + astroid.radius < 0 ||
-        astroid.y - astroid.radius > canvas.height
-      ) {
-        astroidArray.splice(astroidIndex, 1);
-      }
-      const distance = Math.hypot(
-        projectile.x - astroid.x,
-        projectile.y - astroid.y
-      );
-      if (distance - astroid.radius - projectile.radius < 0) {
-        setTimeout(() => {
+      if (isOutside(astroid)) deleteAstroid(astroidIndex);
+      if (isOutside(projectile)) deleteProjectile(projectileIndex);
+
+      if (hasCollided(projectile, astroid)) {
+        createNewParticle(projectile, astroid);
+
+        if (astroid.radius - 15 > 5) {
+          gsap.to(astroid, { radius: astroid.radius - 15 });
           projectileArray.splice(projectileIndex, 1);
           score.scoreUp();
-          astroidArray.splice(astroidIndex, 1);
-        }, 0);
+          setTimeout(() => {
+            projectileArray.splice(projectileIndex, 1);
+          }, 0);
+        } else {
+          setTimeout(() => {
+            astroidArray.splice(astroidIndex, 1);
+            projectileArray.splice(projectileIndex, 1);
+            score.scoreUp();
+          }, 0);
+        }
       }
     });
   });
+}
+
+function isOutside(object) {
+  return (
+    object.x + object.radius < 0 ||
+    object.x - object.radius > canvas.width ||
+    object.y + object.radius < 0 ||
+    object.y - object.radius > canvas.height
+  );
+}
+
+function hasCollided(body1, body2) {
+  const distance = Math.hypot(body1.x - body2.x, body1.y - body2.y);
+  return distance - body2.radius - body1.radius < 1;
+}
+
+function deleteAstroid(astroidIndex) {
+  astroidArray.splice(astroidIndex, 1);
 }

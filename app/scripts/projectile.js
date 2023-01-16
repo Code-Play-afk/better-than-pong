@@ -27,3 +27,7 @@ export function updateProjectile() {
     projectile.travel(ctx);
   });
 }
+
+export function deleteProjectile(projectileIndex) {
+  projectileArray.splice(projectileIndex, 1);
+}
