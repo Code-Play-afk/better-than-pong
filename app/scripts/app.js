@@ -27,7 +27,7 @@ function handleStart() {
   console.clear();
   score.hiScore = score.fetchHiScore();
 
-  myInterval = setInterval(spawnNewAstroid, 900);
+  myInterval = setInterval(spawnNewAstroid, 1500);
   requestAnimationFrame(gameLoop);
 }
 
