@@ -20,7 +20,7 @@ function handleStart() {
   console.log(astroidArray.length);
   console.clear();
   score.hiScore = score.fetchHiScore();
-  myInterval = setInterval(spawnNewAstroid, 1500);
+  myInterval = setInterval(spawnNewAstroid, 1000);
   requestAnimationFrame(gameLoop);
 }
 

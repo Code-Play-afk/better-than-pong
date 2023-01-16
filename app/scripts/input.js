@@ -19,8 +19,8 @@ addEventListener("click", (e) => {
   const clickCoordinates = getClickCoordinates(e);
   const projectileAngle = getAngle(clickCoordinates, canvas);
   const projectileVelocity = {
-    x: Math.cos(projectileAngle) * 4,
-    y: Math.sin(projectileAngle) * 4,
+    x: Math.cos(projectileAngle) * 5.2,
+    y: Math.sin(projectileAngle) * 5.2,
   };
   createNewProjectile(projectileVelocity);
 });
