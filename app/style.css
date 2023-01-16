@@ -67,11 +67,12 @@ h4 {
   letter-spacing: 4px;
 }
 [data-hi-score] {
-  width: 230px;
+  /* width: 230px; */
   margin-right: 0;
 }
 [data-current-score] {
-  width: 230px;
+  width: 120px;
+  background-color: red;
   margin-right: 0;
 }
 h2 {

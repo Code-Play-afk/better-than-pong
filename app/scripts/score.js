@@ -46,7 +46,7 @@ export const score = {
     const bestScore = document.querySelector("[data-hi-score]");
     const currentScore = document.querySelector("[data-current-score]");
     bestScore.innerHTML = `Hi Score:${this.hiScore}`;
-    currentScore.innerHTML = `Current Score:${this.currentScore}`;
+    currentScore.innerHTML = `Score:${this.currentScore}`;
   },
   setDeathScore() {
     const bestScore = document.getElementById("HiScore");
