@@ -52,6 +52,6 @@ export const score = {
     const bestScore = document.getElementById("HiScore");
     const currentScore = document.getElementById("CurrentScore");
     bestScore.innerHTML = `Hi Score:${this.hiScore}`;
-    currentScore.innerHTML = `Current Score:${this.currentScore}`;
+    currentScore.innerHTML = `Score:${this.currentScore}`;
   },
 };
