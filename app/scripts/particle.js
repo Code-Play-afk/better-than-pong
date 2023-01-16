@@ -2,7 +2,7 @@ import { PlanetaryBody } from "./components.js";
 import { ctx } from "./canvas.js";
 
 const particleFriction = 0.99;
-const particleArray = [];
+export let particleArray = [];
 
 export class Particle extends PlanetaryBody {
   constructor(coordinates, radius, color, velocity) {

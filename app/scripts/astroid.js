@@ -5,9 +5,10 @@ import { PlanetaryBody } from "./components.js";
 import { deleteProjectile } from "./projectile.js";
 import { createNewParticle } from "./particle.js";
 
-export const astroidArray = [];
+export let astroidArray = [];
 let difficulty = 2000;
 const astroidFriction = 0.995;
+let i = 0;
 
 export class Astroid extends PlanetaryBody {
   constructor(coordinates, radius, color, velocity) {
@@ -24,39 +25,39 @@ export class Astroid extends PlanetaryBody {
   }
 }
 
-export function spawnNewAstroid() {
-  setInterval(() => {
-    const radius = Math.floor(Math.random() * 40) + 20;
-    let astroidCoordinates = { x: 0, y: 0 };
-    if (Math.random() < 0.5) {
-      astroidCoordinates.x =
-        Math.random() > 0 ? 0 - radius : radius + canvas.width;
-      astroidCoordinates.y = Math.random() * canvas.height;
-    } else {
-      astroidCoordinates.x = Math.random() * canvas.width;
-      astroidCoordinates.y =
-        Math.random() > 0 ? 0 - radius : radius + canvas.height;
-    }
-    const color = `hsl(${Math.random() * 360},50%,50%)`;
+export let spawnNewAstroid = () => {
+  const radius = Math.floor(Math.random() * 40) + 20;
+  let astroidCoordinates = { x: 0, y: 0 };
+  if (Math.random() < 0.5) {
+    astroidCoordinates.x =
+      Math.random() > 0 ? 0 - radius : radius + canvas.width;
+    astroidCoordinates.y = Math.random() * canvas.height;
+  } else {
+    astroidCoordinates.x = Math.random() * canvas.width;
+    astroidCoordinates.y =
+      Math.random() > 0 ? 0 - radius : radius + canvas.height;
+  }
+  const color = `hsl(${Math.random() * 360},50%,50%)`;
 
-    const astroidAngle = Math.atan2(
-      canvas.height / 2 - astroidCoordinates.y,
-      canvas.width / 2 - astroidCoordinates.x
-    );
-    const astroidVelocity = {
-      x: Math.cos(astroidAngle) * 3,
-      y: Math.sin(astroidAngle) * 3,
-    };
-    const astroid = new Astroid(
-      astroidCoordinates,
-      radius,
-      color,
-      astroidVelocity
-    );
-    astroidArray.push(astroid);
-    if (difficulty >= 300) difficulty -= 10;
-  }, difficulty);
-}
+  const astroidAngle = Math.atan2(
+    canvas.height / 2 - astroidCoordinates.y,
+    canvas.width / 2 - astroidCoordinates.x
+  );
+  const astroidVelocity = {
+    x: Math.cos(astroidAngle) * 3,
+    y: Math.sin(astroidAngle) * 3,
+  };
+  const astroid = new Astroid(
+    astroidCoordinates,
+    radius,
+    color,
+    astroidVelocity
+  );
+  console.log("spawn" + i);
+  i++;
+  astroidArray.push(astroid);
+  // if (difficulty >= 500) difficulty -= 10;
+};
 
 export function updateAstroid(projectileArray) {
   astroidArray.forEach((astroid, astroidIndex) => {
@@ -104,4 +105,8 @@ function hasCollided(body1, body2) {
 
 function deleteAstroid(astroidIndex) {
   astroidArray.splice(astroidIndex, 1);
+}
+
+export function resetDifficulty() {
+  difficulty = 2000;
 }
