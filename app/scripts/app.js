@@ -56,7 +56,11 @@ function handleLoss() {
   clearInterval(myInterval);
   score.currentScore = 0;
   lost = false;
-  document.addEventListener("click", handleStart, { once: true });
+  setTimeout(() => {
+    document.addEventListener("click", handleStart, {
+      once: true,
+    });
+  }, 1000);
 }
 
 document.addEventListener("click", handleStart, { once: true });
