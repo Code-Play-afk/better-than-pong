@@ -7,7 +7,7 @@ import { createNewParticle } from "./particle.js";
 
 export let astroidArray = [];
 let difficulty = 2000;
-const astroidFriction = 0.995;
+const astroidFriction = 0.99999;
 let i = 0;
 
 export class Astroid extends PlanetaryBody {

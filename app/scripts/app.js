@@ -1,10 +1,5 @@
 import { projectileArray, updateProjectile } from "./projectile.js";
-import {
-  updateAstroid,
-  spawnNewAstroid,
-  astroidArray,
-  resetDifficulty,
-} from "./astroid.js";
+import { updateAstroid, spawnNewAstroid, astroidArray } from "./astroid.js";
 import { updateParticle, deleteParticle, particleArray } from "./particle.js";
 import { resetCanvas } from "./canvas.js";
 import { score } from "./score.js";
@@ -18,7 +13,6 @@ let modal = document.getElementById("Overlay");
 
 function handleStart() {
   modal.classList.add("hidden");
-  // resetDifficulty();
   resetCanvas();
   astroidArray.splice(0, astroidArray.length);
   projectileArray.splice(0, projectileArray.length);
@@ -26,7 +20,6 @@ function handleStart() {
   console.log(astroidArray.length);
   console.clear();
   score.hiScore = score.fetchHiScore();
-
   myInterval = setInterval(spawnNewAstroid, 1500);
   requestAnimationFrame(gameLoop);
 }

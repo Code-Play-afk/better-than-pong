@@ -38,6 +38,7 @@ body {
   justify-content: center;
   align-items: center;
   inset: 0;
+  cursor: pointer;
 }
 .hidden {
   display: none;
@@ -55,16 +56,23 @@ body {
   padding: 0 10px;
 }
 
-span,
-h4 {
+span {
   font-family: "Righteous", cursive;
   font-size: 1.6rem;
   letter-spacing: 4px;
 }
 h4 {
   font-family: "Righteous", cursive;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   letter-spacing: 4px;
+}
+[data-hi-score] {
+  width: 230px;
+  margin-right: 0;
+}
+[data-current-score] {
+  width: 230px;
+  margin-right: 0;
 }
 h2 {
   font-family: "Rowdies", cursive;
