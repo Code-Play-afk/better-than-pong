@@ -71,7 +71,7 @@ export function updateAstroid(projectileArray) {
         createNewParticle(projectile, astroid);
 
         if (astroid.radius - 15 > 5) {
-          gsap.to(astroid, { radius: astroid.radius - 15 });
+          gsap.to(astroid, { radius: astroid.radius - 20 });
           projectileArray.splice(projectileIndex, 1);
           score.scoreUp();
           setTimeout(() => {
