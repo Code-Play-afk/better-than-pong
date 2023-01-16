@@ -20,6 +20,7 @@ body {
   max-width: 100%;
   min-width: 100%;
   overflow: hidden;
+  cursor: pointer;
   background-color: #000;
 }
 

@@ -7,7 +7,7 @@ import { createNewParticle } from "./particle.js";
 
 export let astroidArray = [];
 let difficulty = 2000;
-const astroidFriction = 0.995;
+const astroidFriction = 0.9992;
 let i = 0;
 
 export class Astroid extends PlanetaryBody {
@@ -44,8 +44,8 @@ export let spawnNewAstroid = () => {
     canvas.width / 2 - astroidCoordinates.x
   );
   const astroidVelocity = {
-    x: Math.cos(astroidAngle) * 3,
-    y: Math.sin(astroidAngle) * 3,
+    x: Math.cos(astroidAngle) * 4,
+    y: Math.sin(astroidAngle) * 4,
   };
   const astroid = new Astroid(
     astroidCoordinates,
